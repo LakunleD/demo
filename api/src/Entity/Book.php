@@ -192,6 +192,9 @@ class Book
     #[Groups(groups: ['Book:read', 'Book:read:admin', 'Bookmark:read'])]
     public ?int $rating = null;
 
+    #[ORM\Column]
+    private ?bool $isPromoted = false;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -200,5 +203,17 @@ class Book
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function isPromoted(): ?bool
+    {
+        return $this->isPromoted;
+    }
+
+    public function setPromoted(bool $isPromoted): static
+    {
+        $this->isPromoted = $isPromoted;
+
+        return $this;
     }
 }
