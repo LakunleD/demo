@@ -205,14 +205,24 @@ class Book
         return $this->id;
     }
 
-    public function isPromoted(): ?bool
+    /**
+     * @ORM\Column(type="string", columnDefinition="ENUM('None', 'Basic', 'Pro') NOT NULL DEFAULT 'None'")
+     */
+    private string $promotionStatus = 'None';
+    
+    public function getPromotionStatus(): string
     {
-        return $this->isPromoted;
+        return $this->promotionStatus;
     }
 
-    public function setPromoted(bool $isPromoted): static
+    public function setPromotionStatus(string $promotionStatus): self
     {
-        $this->isPromoted = $isPromoted;
+        $allowedValues = ['None', 'Basic', 'Pro'];
+        if (!in_array($promotionStatus, $allowedValues)) {
+            throw new \InvalidArgumentException('Invalid promotion status');
+        }
+
+        $this->promotionStatus = $promotionStatus;
 
         return $this;
     }
