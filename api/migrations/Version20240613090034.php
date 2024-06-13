@@ -23,7 +23,7 @@ final class Version20240613090034 extends AbstractMigration
         $this->addSql("ALTER TABLE book ADD promotion_status ENUM('None', 'Basic', 'Pro') NOT NULL DEFAULT 'None'");
 
 
-        // Convert existing 'isPromoted' values to 'promotionStatus'
+        // Convert existing 'isPromoted' values to 'promotionStatus'g
         $this->addSql("UPDATE book SET promotion_status = 'Basic' WHERE is_promoted = true");
         $this->addSql("UPDATE book SET promotion_status = 'None' WHERE is_promoted = false");
 

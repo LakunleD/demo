@@ -209,13 +209,16 @@ class Book
      * @ORM\Column(type="string", columnDefinition="ENUM('None', 'Basic', 'Pro') NOT NULL DEFAULT 'None'")
      */
     private string $promotionStatus = 'None';
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
     
     public function getPromotionStatus(): string
     {
         return $this->promotionStatus;
     }
 
-    public function setPromotionStatus(string $promotionStatus): self
+    public function setPromotionStatus(string $promotionStatus): static
     {
         $allowedValues = ['None', 'Basic', 'Pro'];
         if (!in_array($promotionStatus, $allowedValues)) {
@@ -223,6 +226,18 @@ class Book
         }
 
         $this->promotionStatus = $promotionStatus;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
